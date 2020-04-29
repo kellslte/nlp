@@ -45,19 +45,16 @@ class AdminLoginController extends Controller
         return view('auth.admin-login');
     }
 
-    public function login(Request $request)
+        /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
     {
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required|min:6'
-        ]);
-
-
-        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-            return redirect()->intended(route('canvas'));
-        }
-        return back()->withInput($request->only('email', 'remember'));
+        return Auth::guard('admin');
     }
+
 
     /**
      * @param Request $request

@@ -22,7 +22,7 @@ class RedirectIfAuthenticated
         switch ($guard) {
             case 'admin':
                 if (Auth::guard($guard)->check()) {
-                    return redirect('/canvas');
+                    return redirect()->route('canvas');
                 }
                 break;
 
